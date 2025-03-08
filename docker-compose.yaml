@@ -4,6 +4,7 @@ networks:
     driver: bridge
 
 services:
+  # NodeJS App
   nodejs:
     build:
       context: .
@@ -19,6 +20,15 @@ services:
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
+    networks:
+      - nodejs_network
+    restart: always
+  # MongoDB
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "28017:27017"
     networks:
       - nodejs_network
     restart: always
